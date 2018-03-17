@@ -27,6 +27,29 @@ if [[ -f $DIR/packages/apt ]]; then
       packages="$packages $line"
     fi
   done
-  sudo apt-get install $packages
+  sudo apt-get install -y $packages
 fi
 
+###############################################################################
+# linuxbrew
+###############################################################################
+
+if ! type "brew" > /dev/null; then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+  PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+fi
+
+if [[ -f $DIR/packages/linuxbrew ]]; then
+  exec<$DIR/packages/linuxbrew
+  while read line
+  do
+    if [[ ! "$line" =~ (^#|^$) ]]; then
+      packages="$packages $line"
+    fi
+  done
+  brew install $packages
+fi
+
+echo "Finished Linuxbrew Package Install"
+
+/bin/bash /home/linuxbrew/.linuxbrew/opt/fzf/install --all

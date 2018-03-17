@@ -112,3 +112,7 @@ source "$DOTZSH/init.zsh"
 
 ### Customize to your needs...
 
+# Add linuxbew to path
+export PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
